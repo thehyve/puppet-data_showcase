@@ -10,7 +10,7 @@ class data_showcase::params(
     Optional[String[8]] $db_password        = hiera('data_showcase::db_password', undef),
     String[1] $db_host                      = hiera('data_showcase::db_host', 'localhost'),
     Integer $db_port                        = hiera('data_showcase::db_port', 5432),
-    String[1] $db_name                      = hiera('data_showcase::db_name', 'data-showcase'),
+    String[1] $db_name                      = hiera('data_showcase::db_name', 'datashowcase'),
 
     String[1] $memory                       = hiera('data_showcase::memory', '2g'),
     Integer $app_port                       = hiera('data_showcase::app_port', 8080),
