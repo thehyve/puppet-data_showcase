@@ -1,0 +1,12 @@
+[Unit]
+Description=Data Showcase Service
+
+[Service]
+ExecStart=<%= @start_script %>
+User=<%= @user %>
+Restart=always
+StandardOutput=journal+console
+
+[Install]
+WantedBy=multi-user.target
+
