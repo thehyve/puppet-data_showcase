@@ -71,7 +71,7 @@ class data_showcase inherits data_showcase::params {
     }
 
     class { '::java':
-        package => 'java-1.8.0-openjdk',
+        package => hiera('java::package', 'java-1.8.0-openjdk'),
     }
 
 }

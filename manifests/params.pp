@@ -41,4 +41,6 @@ class data_showcase::params(
         $dsuser_home = $user_home
     }
 
+    $config_file = "${dsuser_home}/data-showcase.yml"
+
 }
