@@ -28,10 +28,6 @@ class data_showcase::params(
     $nexus_repository = "${nexus_url}/content/repositories/${repository}/"
 
     # Database settings
-    $postgresql_params = {
-        version             => '9.4',
-        manage_package_repo => true,
-    }
     $db_url = "jdbc:postgresql://${db_host}:${db_port}/${db_name}"
 
     # Set datashowcase user home directory
