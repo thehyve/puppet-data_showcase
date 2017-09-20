@@ -11,8 +11,9 @@ class data_showcase::service inherits data_showcase::params {
     $memory = $::data_showcase::params::memory
     $java_opts = "-server -Xms${memory} -Xmx${memory} -Djava.awt.headless=true "
     $app_port = $::data_showcase::params::app_port
+    $db_opts = "-DdataSource.url=${::data_showcase::params::db_url}"
     $config_opts = "-Dspring.config.location=${::data_showcase::params::config_file}"
-    $app_opts = "-Dserver.port=${app_port} -Djava.security.egd=file:///dev/urandom ${config_opts}"
+    $app_opts = "-Dserver.port=${app_port} -Djava.security.egd=file:///dev/urandom ${db_opts} ${config_opts}"
     $start_script = "${home}/start"
     $logs_dir = "${home}/logs"
 
