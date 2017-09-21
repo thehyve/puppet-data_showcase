@@ -9,6 +9,7 @@ class data_showcase::database inherits data_showcase::params {
     postgresql::server::db { $::data_showcase::params::db_name:
         user     => $::data_showcase::params::db_user,
         password => $::data_showcase::params::db_password,
+        notify   => Service['data-showcase'],
     }
 
 }

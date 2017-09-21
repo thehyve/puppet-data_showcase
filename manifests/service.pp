@@ -15,7 +15,6 @@ class data_showcase::service inherits data_showcase::params {
     $config_opts = "-Dspring.config.location=${::data_showcase::params::config_file}"
     $app_opts = "-Dserver.port=${app_port} -Djava.security.egd=file:///dev/urandom ${db_opts} ${config_opts}"
     $start_script = "${home}/start"
-    $logs_dir = "${home}/logs"
 
     Archive::Nexus {
         owner   => $user,
@@ -36,11 +35,6 @@ class data_showcase::service inherits data_showcase::params {
         cleanup    => false,
     }
 
-    file { $logs_dir:
-        ensure => directory,
-        owner  => $user,
-        mode   => '0700',
-    }
     file { $start_script:
         ensure  => file,
         owner   => $user,
@@ -58,7 +52,10 @@ class data_showcase::service inherits data_showcase::params {
     -> service { 'data-showcase':
         ensure   => running,
         provider => 'systemd',
-        require  => [ File[$logs_dir], Archive::Nexus[$application_war_file] ],
+        require  => [
+            Archive::Nexus[$application_war_file],
+            Postgresql::Server::Db[$::data_showcase::params::db_name]
+        ],
     }
 
 }
