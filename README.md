@@ -215,7 +215,12 @@ Alternatively, the parameters of the `::transmart_core::params` class can be use
 | `data_showcase::memory` | `2g` | The memory limit for the JVM. |
 | `data_showcase::app_port` | `8080` | The port the `data-showcase` application runs on. |
 | `data_showcase::environment` | `Public` | The environment to configure the system for [`Public`, `Internal`]. |
+| `data_showcase::vu_logo_file` | | File name of the logo to use. The logo should be in `${user_home}/images`. |
+| `data_showcase::ntr_logo_file` | | File name of the logo to use. The logo should be in `${user_home}/images`. |
 
+
+## Images
+The example image in [files](files) is [a painting by Frans Francken the Younger](https://commons.wikimedia.org/wiki/File:Frans_Francken_the_Younger_-_The_cabinet_of_a_collector_with_paintings,_shells,_coins,_fossils_and_flowers_-_1619.jpg).
 
 ## License
 

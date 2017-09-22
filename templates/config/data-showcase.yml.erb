@@ -1,10 +1,13 @@
 ---
 dataShowcase:
   environment: <%= scope.lookupvar('::data_showcase::params::environment') %>
+<% if scope.lookupvar('::data_showcase::params::vu_logo_file') -%>
+  vuLogo: <%= scope.lookupvar('::data_showcase::params::images_directory') %>/<%= scope.lookupvar('::data_showcase::params::vu_logo_file') %>
+<% end -%>
+<% if scope.lookupvar('::data_showcase::params::ntr_logo_file') -%>
+  ntrLogo: <%= scope.lookupvar('::data_showcase::params::images_directory') %>/<%= scope.lookupvar('::data_showcase::params::ntr_logo_file') %>
+<% end -%>
 
 dataSource:
   username: <%= scope.lookupvar('::data_showcase::params::db_user') %>
   password: <%= scope.lookupvar('::data_showcase::params::db_password') %>
-
-
-

@@ -14,7 +14,10 @@ class data_showcase::params(
 
     String[1] $memory                       = hiera('data_showcase::memory', '2g'),
     Integer $app_port                       = hiera('data_showcase::app_port', 8080),
+
     Enum['Public', 'Internal'] $environment = hiera('data_showcase::environment', 'Public'),
+    Optional[String[1]] $vu_logo_file       = hiera('data_showcase::vu_logo_file', undef),
+    Optional[String[1]] $ntr_logo_file      = hiera('data_showcase::ntr_logo_file', undef),
 ) {
 
     if ($db_user == undef) {
@@ -38,5 +41,7 @@ class data_showcase::params(
     }
 
     $config_file = "${dsuser_home}/data-showcase.yml"
+
+    $images_directory = "${dsuser_home}/images"
 
 }
