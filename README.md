@@ -83,6 +83,7 @@ data_showcase::db_port: 1521
 data_showcase::memory: 4g
 data_showcase::environment: Public
 data_showcase::version: 0.0.1-SNAPSHOT
+data_showcase::access_token: configure a secret token
 ```
 
 ### Configuring a node in the manifest file
@@ -95,8 +96,9 @@ node 'test.example.com' {
     class { '::data_showcase::params':
         db_user      => 'test',
         db_password  => 'my secret',
-        db_port => 1521,
-        db_name => 'transmart,
+        db_port      => 1521,
+        db_name      => 'transmart,
+        access_token => 'configure a secret token',
     }
 
     include ::data_showcase::complete
@@ -128,13 +130,29 @@ sudo puppet apply --modulepath=${modulepath} examples/postgres.pp
 ```
 
 ### Prepare the database for the data showcase
-Source the `vars` file (as user `tsloader`):
+
 ```bash
 sudo -iu postgres psql
 ```
-Create the database and load essential data:
+Create the database:
 ```sql
-create
+create user datashowcase with password 'my secret';
+create database data_showcase;
+grant all privileges on database data_showcase to datashowcase;
+```
+
+### Load test data
+
+```bash
+file=test.json
+token=configure a secret token
+data_showcase_url=http://localhost:8080
+
+# Fetch test data file
+curl -o "${file}" https://raw.githubusercontent.com/thehyve/data-showcase/master/data-showcase/src/main/resources/test.json
+
+# Upload data
+curl -v -F "data=@${file}" "${data_showcase_url}/api/data_import/upload?requestToken=${token}"
 ```
 
 ## Manage `systemd` services 
@@ -169,12 +187,14 @@ Install rake using the system-wide `ruby`:
 ```bash
 yum install ruby-devel
 gem install bundler
+export PUPPET_VERSION=4.4.2
 bundle
 ```
 or using `rvm`:
 ```bash
 rvm install 2.1
 gem install bundler
+export PUPPET_VERSION=4.4.2
 bundle
 ```
 Run the test suite:
@@ -212,6 +232,7 @@ Alternatively, the parameters of the `::transmart_core::params` class can be use
 | `data_showcase::db_host` | `localhost` | The database server host name. |
 | `data_showcase::db_port` | `5432` | The database server port. |
 | `data_showcase::db_name` | `data-showcase` | The database name. |
+| `data_showcase::access_token` | | Access token for loading data. (Mandatory) |
 | `data_showcase::memory` | `2g` | The memory limit for the JVM. |
 | `data_showcase::app_port` | `8080` | The port the `data-showcase` application runs on. |
 | `data_showcase::environment` | `Public` | The environment to configure the system for [`Public`, `Internal`]. |
