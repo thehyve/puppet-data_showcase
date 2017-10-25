@@ -4,13 +4,15 @@ class data_showcase::params(
     Optional[String[2]] $user_home          = hiera('data_showcase::user_home', undef),
     String[1] $version                      = hiera('data_showcase::version', '0.0.1-SNAPSHOT'),
     String[1] $nexus_url                    = hiera('data_showcase::nexus_url', 'https://repo.thehyve.nl'),
-    String[1] $repository                   = hiera('data_showcase::repository', 'snapsnots'),
+    Enum['snapshots', 'releases'] $repository = hiera('data_showcase::repository', 'snapshots'),
 
     Optional[String[1]] $db_user            = hiera('data_showcase::db_user', undef),
     Optional[String[8]] $db_password        = hiera('data_showcase::db_password', undef),
     String[1] $db_host                      = hiera('data_showcase::db_host', 'localhost'),
     Integer $db_port                        = hiera('data_showcase::db_port', 5432),
     String[1] $db_name                      = hiera('data_showcase::db_name', 'datashowcase'),
+
+    Optional[String[8]] $access_token       = hiera('data_showcase::access_token', undef),
 
     String[1] $memory                       = hiera('data_showcase::memory', '2g'),
     Integer $app_port                       = hiera('data_showcase::app_port', 8080),
@@ -26,9 +28,9 @@ class data_showcase::params(
     if ($db_password == undef) {
         fail('No database password specified. Please configure data_showcase::db_password')
     }
-
-    # Set Nexus location
-    $nexus_repository = "${nexus_url}/content/repositories/${repository}/"
+    if ($access_token == undef) {
+        fail('No access token specified. Please configure data_showcase::access_token')
+    }
 
     # Database settings
     $db_url = "jdbc:postgresql://${db_host}:${db_port}/${db_name}"

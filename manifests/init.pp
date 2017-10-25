@@ -34,6 +34,9 @@
 # * `db_name`
 # The name of the application database (default: data-showcase).
 #
+# * `access_token`
+# The access token for uploading data. Required.
+#
 # Examples
 # --------
 #
