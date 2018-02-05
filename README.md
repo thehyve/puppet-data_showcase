@@ -1,5 +1,7 @@
 # Puppet module for the Data showcase.
 
+[![Build Status](https://travis-ci.org/thehyve/puppet-data_showcase.svg?branch=master)](https://travis-ci.org/thehyve/puppet-data_showcase/branches)
+
 This is the repository containing a puppet module for deploying the _Data showcase_ application,
 which can be found at <https://github.com/thehyve/data-showcase>.
 
