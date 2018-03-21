@@ -6,36 +6,39 @@
 # Parameters
 # ----------
 #
-# * `user`
+# * `params::user`
 # The system user to be created that runs the application (default: datashowcase).
 #
-# * `user_home`
+# * `params::user_home`
 # The home directory where the application files are stored (default: /home/${user}).
 #
-# * `version`
+# * `params::version`
 # Version of the data showcase artefacts in Nexus (default: 0.0.1-SNAPSHOT).
 #
-# * `nexus_url`
+# * `params::nexus_url`
 # The url of the repository to fetch the artefacts from
 # (default: https://repo.thehyve.nl).
 #
-# * `db_user`
+# * `params::db_user`
 # The database user. Required.
 #
-# * `db_password`
+# * `params::db_password`
 # The database user's password. Required.
 #
-# * `db_host`
+# * `params::db_host`
 # The hostname of the database server (default: localhost).
 #
-# * `db_port`
+# * `params::db_port`
 # The port of the database server (default: 5432 if postgres, 1521 if oracle).
 #
-# * `db_name`
+# * `params::db_name`
 # The name of the application database (default: data-showcase).
 #
-# * `access_token`
+# * `params::access_token`
 # The access token for uploading data. Required.
+#
+# * `params::java_package`
+# The name of the Java package to install (default: openjdk-8-jdk)
 #
 # Examples
 # --------
@@ -74,7 +77,7 @@ class data_showcase inherits data_showcase::params {
     }
 
     class { '::java':
-        package => hiera('java::package', 'openjdk-8-jdk'),
+        package => $::data_showcase::params::java_package,
     }
 
 }

@@ -1,5 +1,5 @@
 ---
-data_showcase::db_user: test
-data_showcase::db_password: Passw0rd1!
-data_showcase::access_token: AccessToken!!
+data_showcase::params::db_user: test
+data_showcase::params::db_password: Passw0rd1!
+data_showcase::params::access_token: AccessToken!!
 
