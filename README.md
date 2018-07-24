@@ -38,11 +38,6 @@ Check the installed modules:
 sudo puppet module list --tree
 ```
 
-```
-/etc/puppet/code/modules
-
-```
-
 ### Install the `data_showcase` module
 Copy the `data_showcase` module repository to the `/etc/puppet/modules` directory:
 ```bash

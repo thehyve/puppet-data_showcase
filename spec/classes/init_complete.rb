@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe 'data_showcase::complete' do
+describe 'data_showcase' do
   on_supported_os.each do |os, facts|
     context "with default values for all parameters on #{os}" do
       let(:facts) { facts }
@@ -9,7 +9,9 @@ describe 'data_showcase::complete' do
     context "with database credentials set on #{os}" do
       let(:facts) { facts }
       let(:node) { 'test.example.com' }
-      it { is_expected.to create_class('data_showcase') }
+      it { is_expected.to create_class('data_showcase::config') }
+      it { is_expected.to create_class('data_showcase::database') }
+      it { is_expected.to create_class('data_showcase::service') }
     end
   end
 end
