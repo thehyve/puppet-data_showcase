@@ -13,7 +13,10 @@
 # The home directory where the application files are stored (default: /home/${user}).
 #
 # * `params::version`
-# Version of the data showcase artefacts in Nexus (default: 0.0.1-SNAPSHOT).
+# Version of the data showcase artefacts in Nexus (default: 1.0.3).
+#
+# * `params::repository`
+# The repository type [releases, snapshots] (default: releases).
 #
 # * `params::nexus_url`
 # The url of the repository to fetch the artefacts from
@@ -32,13 +35,10 @@
 # The port of the database server (default: 5432 if postgres, 1521 if oracle).
 #
 # * `params::db_name`
-# The name of the application database (default: data-showcase).
+# The name of the application database (default: datashowcase).
 #
 # * `params::access_token`
 # The access token for uploading data. Required.
-#
-# * `params::java_package`
-# The name of the Java package to install (default: openjdk-8-jdk)
 #
 # Examples
 # --------
@@ -56,7 +56,7 @@
 # Copyright
 # ---------
 #
-# Copyright 2017 The Hyve.
+# Copyright 2017-2018 The Hyve.
 #
 class data_showcase inherits data_showcase::params {
 
@@ -76,9 +76,20 @@ class data_showcase inherits data_showcase::params {
         owner  => $user,
     }
 
+    case $::osfamily {
+        'redhat': {
+            $default_java = 'java-1.8.0-openjdk'
+        }
+        'debian': {
+            $default_java = 'openjdk-8-jdk'
+        }
+        default: {
+            $default_java = 'openjdk-8-jdk'
+        }
+    }
+
     class { '::java':
-        package => $::data_showcase::params::java_package,
+        package => lookup('java::package', String, first, $default_java),
     }
 
 }
-
